@@ -1,4 +1,7 @@
 import { Pool } from "pg";
+import 'dotenv/config'
 
-// TODO(krystal): you write this
-// - instantiate and export a pg Pool using DATABASE_URL
+const pool = new Pool({ connectionString: process.env.DATABASE_URL});
+
+
+export default pool;
