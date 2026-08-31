@@ -18,6 +18,7 @@ async function fetchData() {
         }
     } catch (err) {
         console.error(err)
+        throw err
     }
 }
 
@@ -42,3 +43,25 @@ async function insertTeam(entry: TeamEntry, conference: string) {
 
     await pool.query(sql, [teamName, logo, conference, wins, losses, ppg, oppPpg, diff])
 }
+
+async function seed() {
+    try {
+        const data = await fetchData();
+
+        for (const entry of data.east) {
+            await insertTeam(entry, 'East');
+        }
+
+        for (const entry of data.west) {
+            await insertTeam(entry, 'West');
+        }
+
+    } catch (err) {
+        console.error(err)
+    } finally {
+        await pool.end()
+    }
+
+}
+
+seed();
