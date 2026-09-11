@@ -13,6 +13,6 @@ app.use(express.json())
 app.use(cors());
 app.use("/api/nba/standings", standingsRouter);
 app.use("/api/scouting", scoutingRouter)
-app.use("api/espn", espnRouter)
+app.use("/api/espn", espnRouter)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))
