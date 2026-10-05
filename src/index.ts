@@ -1,7 +1,7 @@
 import express from "express";
-import standingsRouter from "./routes/standings";
+import standingsRouter from "./routes/standings.routes";
 import scoutingRouter from "./routes/scouting";
-import espnRouter from "./routes/espn";
+import espnRouter from "./routes/espn.routes";
 import cors from 'cors';
 import 'dotenv/config';
 
