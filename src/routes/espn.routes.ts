@@ -1,26 +1,11 @@
 import { Router } from 'express';
-import controllerTeams from '../controllers/espn.controller';
+import { controllerTeams, controllerSingleTeam } from '../controllers/espn.controller';
 
 const router = Router();
 
 router.get("/teams", controllerTeams)
 
-router.get("/teams/:teamId/roster", async (req, res) => {
-    try {
-        const { teamId } = req.params;
-        const response = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${teamId}/roster`);
-
-        if (!response.ok) {
-            throw new Error(`Something went wrong ${response.status}`)
-        }
-
-        const data = await response.json()
-        res.json(data.athletes)
-    } catch(err) {
-        console.error(err)
-        res.status(500).json({error: "Failed to fetch."})
-    }
-})
+router.get("/teams/:teamId/roster", controllerSingleTeam)
 
 router.get("/athletes/:athleteId", async (req, res) => {
     try {

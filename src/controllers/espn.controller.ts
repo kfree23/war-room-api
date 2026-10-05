@@ -1,4 +1,4 @@
-import getTeams from "../services/espn.services"
+import { getTeams, getTeam } from "../services/espn.services"
 import { Request, Response } from "express";
 
 async function controllerTeams(req: Request, res: Response) {
@@ -10,4 +10,14 @@ async function controllerTeams(req: Request, res: Response) {
     }
 }
 
-export default controllerTeams;
+async function controllerSingleTeam(req: Request <{ teamId: string}>, res: Response) {
+    try {
+        const { teamId } = req.params;
+        const team = await getTeam(teamId);
+        res.json(team)
+    } catch(err) {
+        res.status(500).json({error: "Failed to fetch."})
+    }
+}
+
+export { controllerTeams, controllerSingleTeam };
